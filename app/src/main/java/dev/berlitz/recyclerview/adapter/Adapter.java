@@ -15,9 +15,11 @@ import dev.berlitz.recyclerview.model.Movie;
 public class Adapter extends RecyclerView.Adapter<MyViewHolder> {
 
     private List<Movie> movies;
+    private RecyclerClickHandler recyclerClickHandler;
 
-    public Adapter(List<Movie> movies) {
+    public Adapter(List<Movie> movies, RecyclerClickHandler recyclerClickHandler) {
         this.movies = movies;
+        this.recyclerClickHandler = recyclerClickHandler;
     }
 
     @NonNull
@@ -25,7 +27,7 @@ public class Adapter extends RecyclerView.Adapter<MyViewHolder> {
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemLista = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.adapter_lista, parent, false);
-        return new MyViewHolder(itemLista);
+        return new MyViewHolder(itemLista, recyclerClickHandler);
     }
 
     @Override

@@ -1,21 +1,25 @@
 package dev.berlitz.recyclerview.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import dev.berlitz.recyclerview.R;
 import dev.berlitz.recyclerview.adapter.Adapter;
+import dev.berlitz.recyclerview.adapter.RecyclerClickHandler;
 import dev.berlitz.recyclerview.model.Movie;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerClickHandler {
 
     private RecyclerView recyclerView;
 
@@ -34,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
-        recyclerView.setAdapter(new Adapter(lista));
+        recyclerView.setAdapter(new Adapter(lista, this));
     }
 
     private void createMovies() {
@@ -60,4 +64,8 @@ public class MainActivity extends AppCompatActivity {
         lista.add(new Movie("A Felicidade não se Compra", "Gênero", "1946"));
     }
 
+    @Override
+    public void onClick(int position) {
+        Toast.makeText(this, "Clicked " + lista.get(position).getTitulo(), Toast.LENGTH_SHORT).show();
+    }
 }
